@@ -1,0 +1,50 @@
+apply plugin: 'checkstyle'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.0'
+    }
+}
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+task copyFiles << {
+    if (file('.idea').exists()) {
+        copy {
+            from '.preserve/inspectionProfiles'
+            into '.idea/inspectionProfiles'
+        }
+        copy {
+            from '.preserve/checkstyle-idea.xml'
+            into '.idea'
+        }
+    }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+checkstyle {
+    toolVersion "8.16"
+    configFile = new File(rootDir, "config/checkstyle.xml")
+}
+task checkstyleMain (type: Checkstyle) {
+    source 'app/src/main'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+    classpath = files()
+    ignoreFailures = true
+}
+
+// vim: ts=4:sw=4:et:ft=groovy
