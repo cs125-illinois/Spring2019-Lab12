@@ -7,4 +7,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/lookup_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lookup_address" />
+
+    <TextView
+        android:id="@+id/address_info"
+        android:layout_width="match_parent"
+        android:layout_height="187dp"
+        android:text="@string/address_info" />
+
 </LinearLayout>
