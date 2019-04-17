@@ -3,6 +3,8 @@ package edu.illinois.cs.cs125.spring2019.lab12;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,7 +40,8 @@ public final class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        startAPICall("192.17.96.8");
+        final Button lookupAddress = findViewById(R.id.lookup_address);
+        lookupAddress.setOnClickListener(v -> startAPICall("192.17.96.8"));
     }
 
     /**
@@ -87,7 +90,21 @@ public final class MainActivity extends AppCompatActivity {
         try {
             Log.d(TAG, response.toString(2));
             // Example of how to pull a field off the returned JSON object
+            final TextView addressInfo = findViewById(R.id.address_info);
+            addressInfo.setText("Hostname: " + response.get("hostname").toString());
+            addressInfo.append("\nCity: " + response.get("city").toString());
+            addressInfo.append("\nRegion: " + response.get("region").toString());
+            addressInfo.append("\nCountry: " + response.get("country").toString());
+            addressInfo.append("\nLocation: " + response.get("loc").toString());
+            addressInfo.append("\nPostal: " + response.get("postal").toString());
+            addressInfo.append("\nOrganization: " + response.get("org").toString());
             Log.i(TAG, response.get("hostname").toString());
+            Log.i(TAG, response.get("city").toString());
+            Log.i(TAG, response.get("region").toString());
+            Log.i(TAG, response.get("country").toString());
+            Log.i(TAG, response.get("loc").toString());
+            Log.i(TAG, response.get("postal").toString());
+            Log.i(TAG, response.get("org").toString());
         } catch (JSONException ignored) { }
     }
 }

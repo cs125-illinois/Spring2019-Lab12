@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Lab 11</string>
+    <string name="lookup_address">Lookup Address</string>
+    <string name="address_info">Address Info</string>
 </resources>
